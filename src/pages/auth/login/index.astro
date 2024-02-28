@@ -1,0 +1,57 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const userName = data.get("userName");
+    const password = data.get("password");
+
+    console.log(userName, password);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<Layout title="Login">
+  <section class="h-screen">
+    <div class="grid grid-rows-2 h-screen relative items-center justify-center">
+      <a href="/" class="absolute top-6 right-6">Go back</a>
+      <img src="/images/hero.webp" alt="" class="w-full h-full" />
+      <div
+        class="absolute w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-lg left-2"
+      >
+        Account
+      </div>
+      <form class="p-4 flex flex-col gap-2" method="POST">
+        <div class="font-bold text-gray-400">
+          Sign In With Your Nada Account
+        </div>
+        <input
+          type="text"
+          class="bg-gray-100 w-full p-4 rounded-lg mt-2"
+          placeholder="Enter Your Username"
+          required
+          name="userName"
+        />
+        <input
+          type="password"
+          class="bg-gray-100 w-full p-4 rounded-lg"
+          placeholder="Enter Your Password"
+          required
+          name="password"
+        />
+        <button class="bg-blue-300 p-4 rounded-lg text-white" type="submit"
+          >Login</button
+        >
+        <div class="flex justify-between text-gray-400">
+          <div>Forgot Password?</div>
+          <div>Register</div>
+        </div>
+      </form>
+    </div>
+  </section>
+</Layout>
